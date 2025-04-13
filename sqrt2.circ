@@ -2897,12 +2897,12 @@
       <a name="facing" val="east"/>
       <a name="label" val="is_exp_0"/>
     </comp>
-    <comp lib="0" loc="(1500,430)" name="Tunnel">
+    <comp lib="0" loc="(1510,430)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="exp"/>
       <a name="width" val="24"/>
     </comp>
-    <comp lib="0" loc="(1520,430)" name="Splitter">
+    <comp lib="0" loc="(1530,430)" name="Splitter">
       <a name="appear" val="right"/>
       <a name="bit1" val="none"/>
       <a name="bit10" val="none"/>
@@ -2935,6 +2935,7 @@
       <a name="facing" val="west"/>
       <a name="label" val="RES_MANT"/>
       <a name="output" val="true"/>
+      <a name="radix" val="16"/>
       <a name="width" val="24"/>
     </comp>
     <comp lib="0" loc="(280,300)" name="Tunnel">
@@ -3072,8 +3073,8 @@
     <wire from="(1340,390)" to="(1340,510)"/>
     <wire from="(1340,390)" to="(1570,390)"/>
     <wire from="(1480,280)" to="(1610,280)"/>
-    <wire from="(1500,430)" to="(1520,430)"/>
-    <wire from="(1540,440)" to="(1570,440)"/>
+    <wire from="(1510,430)" to="(1530,430)"/>
+    <wire from="(1550,440)" to="(1570,440)"/>
     <wire from="(1560,460)" to="(1560,510)"/>
     <wire from="(1560,460)" to="(1570,460)"/>
     <wire from="(1570,390)" to="(1570,420)"/>
@@ -3108,7 +3109,6 @@
     <wire from="(780,170)" to="(790,170)"/>
     <wire from="(790,300)" to="(810,300)"/>
     <wire from="(810,300)" to="(810,430)"/>
-    <wire from="(810,450)" to="(820,450)"/>
     <wire from="(810,470)" to="(810,580)"/>
     <wire from="(890,250)" to="(900,250)"/>
     <wire from="(930,250)" to="(1020,250)"/>
@@ -3122,12 +3122,12 @@
     <comp lib="0" loc="(1370,580)" name="Constant">
       <a name="width" val="24"/>
     </comp>
-    <comp lib="0" loc="(1610,480)" name="Tunnel">
+    <comp lib="0" loc="(1540,480)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="exp"/>
       <a name="width" val="24"/>
     </comp>
-    <comp lib="0" loc="(1640,480)" name="Splitter">
+    <comp lib="0" loc="(1550,480)" name="Splitter">
       <a name="bit1" val="none"/>
       <a name="bit10" val="none"/>
       <a name="bit11" val="none"/>
@@ -3159,7 +3159,7 @@
       <a name="facing" val="west"/>
       <a name="label" val="NEW_EXP_24bit"/>
       <a name="output" val="true"/>
-      <a name="radix" val="16"/>
+      <a name="radix" val="10unsigned"/>
       <a name="width" val="24"/>
     </comp>
     <comp lib="0" loc="(290,360)" name="Tunnel">
@@ -3175,7 +3175,6 @@
     <comp lib="0" loc="(320,260)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="EXP_24bit"/>
-      <a name="radix" val="16"/>
       <a name="width" val="24"/>
     </comp>
     <comp lib="0" loc="(320,570)" name="Constant">
@@ -3207,6 +3206,9 @@
       <a name="value" val="0xf"/>
       <a name="width" val="24"/>
     </comp>
+    <comp lib="1" loc="(1630,480)" name="OR Gate">
+      <a name="size" val="30"/>
+    </comp>
     <comp lib="1" loc="(800,470)" name="OR Gate">
       <a name="size" val="30"/>
     </comp>
@@ -3224,6 +3226,9 @@
     </comp>
     <comp loc="(790,570)" name="right_shift"/>
     <comp loc="(820,360)" name="right_shift"/>
+    <wire from="(1090,440)" to="(1090,470)"/>
+    <wire from="(1090,440)" to="(1580,440)"/>
+    <wire from="(1090,470)" to="(1130,470)"/>
     <wire from="(1100,360)" to="(1130,360)"/>
     <wire from="(1120,490)" to="(1120,550)"/>
     <wire from="(1120,490)" to="(1130,490)"/>
@@ -3233,8 +3238,13 @@
     <wire from="(1360,450)" to="(1710,450)"/>
     <wire from="(1360,560)" to="(1390,560)"/>
     <wire from="(1370,580)" to="(1390,580)"/>
-    <wire from="(1610,480)" to="(1640,480)"/>
+    <wire from="(1540,480)" to="(1550,480)"/>
+    <wire from="(1570,470)" to="(1600,470)"/>
+    <wire from="(1580,440)" to="(1580,490)"/>
+    <wire from="(1580,490)" to="(1600,490)"/>
     <wire from="(1610,560)" to="(1710,560)"/>
+    <wire from="(1630,480)" to="(1660,480)"/>
+    <wire from="(1660,470)" to="(1660,480)"/>
     <wire from="(1660,470)" to="(1710,470)"/>
     <wire from="(1710,490)" to="(1710,560)"/>
     <wire from="(1930,450)" to="(1980,450)"/>
@@ -3250,7 +3260,7 @@
     <wire from="(750,460)" to="(770,460)"/>
     <wire from="(750,480)" to="(770,480)"/>
     <wire from="(790,570)" to="(900,570)"/>
-    <wire from="(800,470)" to="(1130,470)"/>
+    <wire from="(800,470)" to="(1090,470)"/>
     <wire from="(820,360)" to="(880,360)"/>
     <wire from="(870,380)" to="(880,380)"/>
     <wire from="(890,550)" to="(900,550)"/>
