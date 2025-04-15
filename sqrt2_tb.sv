@@ -1,4 +1,4 @@
-`include "sqrt2.sv"
+// `include "sqrt2.sv"
 
 module sqrt2_tb; 
 	reg [15:0] data_bus = 16'hzzzz;
@@ -11,7 +11,7 @@ module sqrt2_tb;
     wire [15:0] io_data;
 	assign io_data = (counter > 1) ? 16'hzzzz : data_bus;
 
-    sqrt2 uut (
+    sqrt2 obj (
         .IO_DATA(io_data),
         .IS_NAN(is_nan),
         .IS_PINF(is_pinf),
@@ -81,7 +81,7 @@ module sqrt2_tb;
         enable = 0;
         #2
 
-        data_bus = 16'hffff; // ans = fe00
+        data_bus = 16'hffff; // ans = ffff
 		enable = 1;
         #2;
         data_bus = 16'hzzzz;
@@ -114,6 +114,14 @@ module sqrt2_tb;
         #2
 
         data_bus = 16'hfc00; // ans = fe00
+		enable = 1;
+        #2;
+        data_bus = 16'hzzzz;
+        #22;
+        enable = 0;
+        #2
+
+        data_bus = 16'h7d00; // ans = 7f00
 		enable = 1;
         #2;
         data_bus = 16'hzzzz;

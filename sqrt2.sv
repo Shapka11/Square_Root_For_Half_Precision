@@ -68,7 +68,7 @@ module sqrt2(
                 is_pos_inf = (exp == 5'b11111 && mant == 0 && sign == 0);
                 is_pos_zero = (sign == 0 && mant == 0 && exp == 0);
                 is_neg_zero = (sign == 1 && mant == 0 && exp == 0);
-                is_neg_num = (sign == 1 && is_neg_zero == 0 && IS_NAN == 0);
+                is_neg_num = (sign == 1 && is_neg_zero == 0 && is_nan == 0);
                 is_spec_case = (is_nan || is_pos_inf || is_neg_zero);
                 is_denorm_num = (sign == 0 && exp == 0 && mant != 0);
                 data_spec_case_num = IO_DATA;
@@ -142,10 +142,13 @@ module sqrt2(
 
             if (counter > 4'd1) begin //вывод ответа со 2 такта
 
-                if (is_nan || is_pos_inf || is_neg_zero || is_pos_zero) begin
+                if (is_pos_inf || is_neg_zero || is_pos_zero) begin
                     data_out = data_spec_case_num;
                 end else if (is_neg_num) begin
                     data_out = 16'hfe00;
+                end else if (is_nan) begin
+                    data_out = data_spec_case_num;
+                    data_out[9] = 1;
                 end else begin
                     data_out[14:10] = exp;
                     data_out[9:0] = res_mant;
