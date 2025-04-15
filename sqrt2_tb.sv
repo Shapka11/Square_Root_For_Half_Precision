@@ -1,4 +1,4 @@
-// `include "sqrt2.sv"
+`include "sqrt2.sv"
 
 module sqrt2_tb; 
 	reg [15:0] data_bus = 16'hzzzz;
