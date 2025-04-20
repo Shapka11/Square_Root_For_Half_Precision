@@ -30,6 +30,7 @@ module sqrt2(
 
     assign IS_NAN = (is_nan == 1 || is_neg_num == 1) ? 1 : 0;
     assign IS_PINF = is_pos_inf;
+    assign IS_NINF = 0;
     assign RESULT = is_result;
     assign IO_DATA = (counter < 2) ? 16'bzzzz : data_out;
 
