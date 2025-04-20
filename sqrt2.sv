@@ -137,10 +137,6 @@ module sqrt2(
                 mant = mant << 2;
             end
 
-            if (counter == 4'd12 || (is_spec_case && counter > 1)) begin
-                is_result = 1;
-            end
-
             if (counter > 4'd1) begin //вывод ответа со 2 такта
 
                 if (is_pos_inf || is_neg_zero || is_pos_zero) begin
@@ -155,6 +151,10 @@ module sqrt2(
                     data_out[9:0] = res_mant;
                 end
 
+            end
+
+            if (counter == 4'd12 || (is_spec_case && counter > 1)) begin
+                is_result = 1;
             end
 
         end
