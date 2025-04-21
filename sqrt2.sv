@@ -14,6 +14,7 @@ module sqrt2(
     reg [15:0] data_out = 0;
     reg [15:0] data_spec_case_num = 0;
     reg [4:0] shift_mant = 0;
+    reg [4:0] new_exp = 0;
 
     reg is_spec_case = 0;
     reg is_pos_inf = 0;
@@ -28,14 +29,15 @@ module sqrt2(
     reg [11:0] res_mant = 0;
     reg [23:0] remainder = 0;
 
-    assign IS_NAN = (is_nan == 1 || is_neg_num == 1) ? 1 : 0;
-    assign IS_PINF = is_pos_inf;
+    assign IS_NAN = counter > 1 && (is_nan == 1 || is_neg_num == 1) ? 1 : 0;
+    assign IS_PINF = counter > 1 ? is_pos_inf : 0;
     assign IS_NINF = 0;
-    assign RESULT = is_result;
+    assign RESULT = counter > 1 ? is_result : 0;
     assign IO_DATA = (counter < 2) ? 16'bzzzz : data_out;
 
     always @(negedge ENABLE) begin
         exp = 0;
+        new_exp = 0;
         mant = 0;
         sign = 0;
         data_out = 0;
@@ -70,10 +72,10 @@ module sqrt2(
                 is_pos_zero = (sign == 0 && mant == 0 && exp == 0);
                 is_neg_zero = (sign == 1 && mant == 0 && exp == 0);
                 is_neg_num = (sign == 1 && is_neg_zero == 0 && is_nan == 0);
-                is_spec_case = (is_nan || is_pos_inf || is_neg_zero);
+                is_spec_case = (is_nan || is_pos_inf || is_neg_zero || sign == 1);
                 is_denorm_num = (sign == 0 && exp == 0 && mant != 0);
                 data_spec_case_num = IO_DATA;
-                
+
                 //install data
                 if (is_denorm_num) begin
                     
@@ -100,10 +102,10 @@ module sqrt2(
                     end
 
                     mant = mant << shift_mant;
-                    exp = 5'd15 - ((5'd14 + shift_mant) >> 1);
+                    new_exp = 5'd15 - ((5'd14 + shift_mant) >> 1);
 
                     if (shift_mant[0] == 1) begin
-                        exp = exp - 1;
+                        new_exp = new_exp - 1;
                         mant = mant << 1;
                     end
 
@@ -114,14 +116,15 @@ module sqrt2(
                     end
                     
                     if (exp >= 5'd15) begin
-                        exp = 5'd15 + ((exp - 5'd15) >> 1);
+                        new_exp = 5'd15 + ((exp - 5'd15) >> 1);
                     end else begin
-                        exp = 5'd15 - ((5'd15 - exp) >> 1);
+                        new_exp = 5'd15 - ((5'd15 - exp) >> 1);
                     end
-                    
+
                     if (mant[11] == 1 && exp < 4'd15) begin
-                        exp = exp - 1;
+                        new_exp = new_exp - 1;
                     end
+
                 end
             end
 
@@ -147,7 +150,7 @@ module sqrt2(
                     data_out = data_spec_case_num;
                     data_out[9] = 1;
                 end else begin
-                    data_out[14:10] = exp;
+                    data_out[14:10] = new_exp;
                     data_out[9:0] = res_mant;
                 end
 
@@ -156,7 +159,6 @@ module sqrt2(
             if (counter == 4'd12 || (is_spec_case && counter > 1)) begin
                 is_result = 1;
             end
-
         end
 
     end
