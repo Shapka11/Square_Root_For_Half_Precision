@@ -4,6 +4,7 @@
 # Do not ignore source files.
 !sqrt2.sv
 !sqrt2_tb.sv
+!test_cases.txt
 !sqrt2.circ
 !template_dont_edit/sqrt2.sv
 !template_dont_edit/sqrt2_tb.sv
